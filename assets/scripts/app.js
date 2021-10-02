@@ -11,6 +11,12 @@ let hasBonusLife = true;
 //Function is in vendor.js
 adjustHealthBars(chosenMaxLife);
 
+function reset() {
+  currentMonsterHealth = chosenMaxLife;
+  currentPlayerHealth = chosenMaxLife;
+  resetGame(chosenMaxLife);
+}
+
 function endRound() {
   const initialPlayerHealth = currentPlayerHealth;
   const playerDamage =
@@ -31,6 +37,10 @@ function endRound() {
     alert("You lost!");
   } else if (currentMonsterHealth <= 0 && currentPlayerHealth <= 0) {
     alert("You have a draw");
+  }
+
+  if (currentMonsterHealth <= 0 || currentMonsterHealth <= 0) {
+    reset();
   }
 }
 
