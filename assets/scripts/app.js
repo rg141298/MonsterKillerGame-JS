@@ -9,8 +9,15 @@ let currentPlayerHealth = chosenMaxLife;
 //Function is in vendor.js
 adjustHealthBars(chosenMaxLife);
 
-function attackHandler() {
-  const damage = dealMonsterDamage(ATTACK_VALUE); /* Function is in vendor.js*/
+function attackMonster(mode) {
+  let maxDamage;
+  if (mode === "ATTACK") {
+    maxDamage = ATTACK_VALUE;
+  } else if (mode === "STRONG_ATTACK") {
+    maxDamage = STRONG_ATTACK_VALUE;
+  }
+
+  const damage = dealMonsterDamage(maxDamage); /* Function is in vendor.js*/
   currentMonsterHealth -= damage;
   const playerDamage =
     dealPlayerDamage(Monster_ATTACK_VALUE); /*Function is in vendor.js */
@@ -25,21 +32,12 @@ function attackHandler() {
   }
 }
 
-function strongAttackHandler() {
-  const damage =
-    dealMonsterDamage(STRONG_ATTACK_VALUE); /* Function is in vendor.js*/
-  currentMonsterHealth -= damage;
-  const playerDamage =
-    dealPlayerDamage(Monster_ATTACK_VALUE); /*Function is in vendor.js */
-  currentPlayerHealth -= playerDamage;
+function attackHandler() {
+  attackMonster("ATTACK");
+}
 
-  if (currentMonsterHealth <= 0 && currentPlayerHealth > 0) {
-    alert("You won!");
-  } else if (currentPlayerHealth <= 0 && currentMonsterHealth > 0) {
-    alert("You lost!");
-  } else if (currentMonsterHealth <= 0 && currentPlayerHealth <= 0) {
-    alert("You have a draw");
-  }
+function strongAttackHandler() {
+  attackMonster("STRONG_ATTACK");
 }
 
 attackBtn.addEventListener("click", attackHandler);
